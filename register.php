@@ -110,7 +110,7 @@ session_start();
     </div>
 
     <main class="form-signin w-100 m-auto">
-        <form method="post" action="controller.php?mode=newuser" >
+        <form method="post" action="controller.php" >
             <div class="image-container" style="text-align: center;">
                 <img class="mb-4" src="assets/img/crudo.png" alt="" width="100" />
             </div>
