@@ -39,31 +39,49 @@ namespace dto {
 
         public function getAll() {
             $sql = 'SELECT * FROM esercizi.utenti_S5L5';
-            $res = $this->conn->query($sql, PDO::FETCH_ASSOC);
-    
-            if($res) { // Controllo se ci sono dei dati nella variabile $res
-                return $res;
+            // Esecuzione della query senza specificare la modalità di fetch qui
+            $stmt = $this->conn->query($sql);
+        
+            if($stmt) { // Controllo se lo statement è valido
+                // Imposta la modalità di fetch per ottenere un array associativo
+                $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                if ($res) { // Controllo se ci sono dei dati
+                    return $res;
+                }
             }
-
-            return null;
+        
+            return "ciao hai sbagliato o non c'è niente";
         }
-        public function getUserByID(int $id) {
-            $sql = 'SELECT * FROM esercizi.utenti_S5L5 WHERE id = :id';
-            $stm = $this->conn->prepare($sql);
-            $res = $stm->execute(['id' => $id]);
-    
-            if($res) { // Controllo se ci sono dei dati nella variabile $res
-                return $res;
+        public function getUserByEmail(string $email) {
+            $sql = "SELECT * FROM esercizi.utenti_S5L5 WHERE email = :email";
+            try {
+                $stm = $this->conn->prepare($sql);
+                $stm->execute(['email' => $email]);
+                return $stm->fetch(PDO::FETCH_ASSOC);
+            } catch (\PDOException $e) {
+                // Log dell'errore o visualizzazione per debugging
+                echo "Errore durante il salvataggio dell'utente: " . $e->getMessage();
+                return 0; // Indica un fallimento
             }
-
-            return null;
         }
         public function saveUser(array $user) {
             $sql = "INSERT INTO esercizi.utenti_S5L5 (Nome, Cognome, City, Password, email) VALUES (:nome, :cognome, :citta, :password, :email)";
-            $stm = $this->conn->prepare($sql);
-            $stm->execute(['nome' => $user['Nome'], 'cognome' => $user['Cognome'], 'citta' => $user['City'], 'password' => $user['Password'], 'email' => $user['email']]);
-            return $stm->rowCount();
+            try {
+                $stm = $this->conn->prepare($sql);
+                $stm->execute(['nome' => $user['Nome'], 'cognome' => $user['Cognome'], 'citta' => $user['City'], 'password' => $user['Password'], 'email' => $user['email']]);
+                return $stm->rowCount();
+            } catch (\PDOException $e) {
+                // Log dell'errore o visualizzazione per debugging
+                echo "Errore durante il salvataggio dell'utente: " . $e->getMessage();
+                return 0; // Indica un fallimento
+            }
         }
+
+        
+
+
+
+
         public function updateUser(array $user) {
             $sql = "UPDATE esercizi.utenti_S5L5 SET Nome = :nome, Cognome = :cognome, City = :citta, Password = :password, email = :email WHERE id = :id";
             $stm = $this->conn->prepare($sql);

@@ -110,7 +110,16 @@ session_start();
     </div>
 
     <main class="form-signin w-100 m-auto">
-        <form action="controller.php" method="post">
+
+        <?php
+            if($_REQUEST['error'] === 'user') {
+                ?><h3 class="text-warning m-3">Utente non trovato</h3><?php
+            } else if($_REQUEST['errore'] === 'pwd') {
+                ?><h3 class="text-warning m-3">Password non valida</h3><?php 
+            }
+        ?>
+       
+        <form action="controller.php?mode=login" method="POST">
             <div class="image-container" style="text-align: center;">
                 <img class="mb-4" src="assets/img/crudo.png" alt="" width="100" />
             </div>
