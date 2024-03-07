@@ -22,9 +22,15 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Admin Panel</a>
-        </li>
+        <?php 
+            if(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true) {
+                echo ' <li class="nav-item">
+                <a class="nav-link" href="#">Admin Panel</a>
+              </li>';
+            }
+
+        ?>
+       
         <?php
         if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
             echo '<li class="nav-item"><a class="nav-link" href="controller.php?mode=logout">Logout</a></li>';
