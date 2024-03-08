@@ -10,5 +10,12 @@ $pdoConn = Database::getInstance($config);
 $conn = $pdoConn->getConnection();
 $usersCard = new Dto($conn);
 $res = $usersCard->getUsersID($_GET['idUtente']);
-var_dump($res)
+var_dump($res);
+
 ?>
+
+
+
+
+
+<?php include_once "assets/php/footer.php"; ?>
