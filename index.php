@@ -2,8 +2,8 @@
 session_start();
 if ($_SESSION['login'] !== 'true') {
     // Reindirizza l'utente alla pagina di login
-    header('Location: register.php');
-    exit; // Assicurati di chiamare exit dopo il reindirizzamento per fermare l'esecuzione dello script
+    header('Location: login.php');
+    exit; 
 }
 session_write_close();
 ?>
@@ -30,10 +30,10 @@ $res = $usersCard->getAll();
             <div class="col">
                 <div class="card">
                     <?php if ($users['img']) {
-                        echo "<img src='" . $users['img'] . "' class='card-img-top w-50 m-auto' alt='...'>";
+                        echo "<img src='" . $users['img'] . "' class='card-img-top m-auto' alt='...'>";
 
                     } else {
-                        echo '<img src="assets/img/crudo.png" class="card-img-top w-50 m-auto" alt="...">';
+                        echo '<img src="assets/img/crudo.png" class="card-img-top m-auto" alt="...">';
                     }
                     ; ?>
                     <div class="card-body">
@@ -54,7 +54,7 @@ $res = $usersCard->getAll();
                             <input type='hidden' name='idUtente' value='".$users['ID']."'>
                             <button type='submit' class='btn btn-primary w-25'>Update Info</button>
                         </form>
-                        <form action='delete.php' method='post' class='d-inline'>
+                        <form action='controller.php?mode=deleteUser&id=".$users['ID']."' method='post' class='d-inline'>
                             <input type='hidden' name='idUtente' value='".$users['ID']."'>
                             <button type='submit' class='btn btn-primary w-25'>Delete User</button>
                         </form>";

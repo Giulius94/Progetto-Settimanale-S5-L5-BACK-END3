@@ -146,6 +146,9 @@ session_start();
             <button class="btn btn-primary w-100 py-2" type="submit">
                 Sign in
             </button>
+            <a href="register.php" class="btn btn-primary w-100 py-2 mt-3" role="button">
+                Go to Register Page
+            </a>
             <?php
             if (isset($_SESSION['error'])) {
                 echo '<div class="alert alert-danger my-3" role="alert">' . $_SESSION['error'] . '</div>';

@@ -69,7 +69,7 @@ namespace dto {
             $sql = 'SELECT * FROM esercizi.utenti_S5L5 WHERE id = :id';
             $stm = $this->conn->prepare($sql);
             $stm->execute(['id' => $id]);
-            return $stm->fetchAll();
+            return $stm->fetchAll(PDO::FETCH_ASSOC);
         }
 
         public function saveUser(array $user) {
@@ -91,13 +91,14 @@ namespace dto {
 
 
         public function updateUser(array $user) {
-            $sql = "UPDATE esercizi.utenti_S5L5 SET Nome = :nome, Cognome = :cognome, City = :citta, Password = :password, email = :email, img = :img WHERE id = :id";
+            $sql = "UPDATE esercizi.utenti_S5L5 SET Nome = :nome, Cognome = :cognome, City = :citta, email = :email, img = :img WHERE id = :id";
             $stm = $this->conn->prepare($sql);
-            $stm->execute(['nome' => $user['Nome'], 'cognome' => $user['Cognome'], 'citta' => $user['City'], 'password' => $user['Password'], 'email' => $user['email'], 'img' => $user['img']]);
+            $stm->execute(['nome' => $user['Nome'], 'cognome' => $user['Cognome'], 'citta' => $user['City'], 'email' => $user['email'], 'img' => $user['img'], 'id' => $user['id']]);
             return $stm->rowCount();
         }
+
         public function deleteUser(int $id) {
-            $sql = "DELETE esercizi.utenti_S5L5 WHERE id = :id";
+            $sql = "DELETE FROM esercizi.utenti_S5L5 WHERE id = :id";
             $stm = $this->conn->prepare($sql);
             $stm->execute(['id' => $id]);
            return $stm->rowCount();
